@@ -10,6 +10,8 @@ Release.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-02
+
 ### Added
 
 - Widget « Artisans près de chez moi » : artisans d'un métier autour de la
@@ -21,3 +23,6 @@ Release.
 - Bouton « Tester la connexion » dans l'écran de configuration.
 - Cache des données dans `/data`, relu seulement à la mise à jour mensuelle du
   site.
+
+[Unreleased]: https://github.com/tlse-vins/gladys-carte-des-artisans/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/tlse-vins/gladys-carte-des-artisans/releases/tag/v1.0.0
