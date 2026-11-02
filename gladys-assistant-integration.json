@@ -1,0 +1,2027 @@
+{
+  "manifest_version": 1,
+  "type": "provider",
+  "name": "Carte des artisans",
+  "description": {
+    "en": "Find certified craftsmen near your home (French public data, Sirene).",
+    "fr": "Trouvez les artisans près de chez vous : plus de 3 millions d'entreprises, labels RGE et EPV."
+  },
+  "version": "1.0.0",
+  "docker_image": "ghcr.io/tlse-vins/gladys-carte-des-artisans:1.0.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/tlse-vins/gladys-carte-des-artisans/main/cover.jpg",
+  "categories": ["services"],
+  "location": true,
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "How it works",
+        "fr": "Fonctionnement"
+      },
+      "description": {
+        "en": "Nothing to set up here: the integration searches around the location of your Gladys house. Add the \"Craftsmen near me\" widget to a dashboard, or the \"Find a craftsman\" action to a scene. Data: Sirene (Insee) and the French chambers of trades register, updated monthly, read from cartedesartisans.fr, an independent website (not affiliated with Insee or the chambers of trades). Your location never leaves Gladys.",
+        "fr": "Rien à régler ici : l'intégration cherche autour de la position de votre maison Gladys. Ajoutez le widget « Artisans près de chez moi » à un tableau de bord, ou l'action « Chercher un artisan » à une scène. Données : Sirene (Insee) et répertoire des métiers (CMA), mises à jour chaque mois, lues sur cartedesartisans.fr, site indépendant (non affilié à l'Insee ni aux chambres de métiers et de l'artisanat). Votre position ne quitte jamais Gladys."
+      },
+      "links": [
+        {
+          "url": "https://cartedesartisans.fr/",
+          "label": {
+            "en": "Carte des artisans",
+            "fr": "Carte des artisans"
+          }
+        },
+        {
+          "url": "https://cartedesartisans.fr/faq.html#classement",
+          "label": {
+            "en": "Ranking rules",
+            "fr": "Règles de classement"
+          }
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "key": "tester",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion"
+      },
+      "timeout_seconds": 30
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "chercher_artisan",
+      "label": {
+        "en": "Find a craftsman",
+        "fr": "Chercher un artisan"
+      },
+      "description": {
+        "en": "Nearest craftsman of a trade around the house (certified ones first).",
+        "fr": "L'artisan d'un métier le plus proche de la maison (labellisés d'abord)."
+      },
+      "timeout_seconds": 60,
+      "fields": [
+        {
+          "key": "metier",
+          "type": "select",
+          "label": {
+            "en": "Trade",
+            "fr": "Métier"
+          },
+          "required": true,
+          "options": [
+            {
+              "value": "maison-depannage.plombier",
+              "label": {
+                "en": "Plombier (Dépannage maison)",
+                "fr": "Plombier (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.chauffagiste-climatisation",
+              "label": {
+                "en": "Chauffagiste, climatisation (Dépannage maison)",
+                "fr": "Chauffagiste, climatisation (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.electricien",
+              "label": {
+                "en": "Électricien (Dépannage maison)",
+                "fr": "Électricien (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.antenniste",
+              "label": {
+                "en": "Antenniste (Dépannage maison)",
+                "fr": "Antenniste (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.couvreur-zingueur",
+              "label": {
+                "en": "Couvreur, zingueur (Dépannage maison)",
+                "fr": "Couvreur, zingueur (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.etancheite",
+              "label": {
+                "en": "Étanchéité (Dépannage maison)",
+                "fr": "Étanchéité (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.serrurier-metallier",
+              "label": {
+                "en": "Serrurier, métallier (Dépannage maison)",
+                "fr": "Serrurier, métallier (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.alarme-videosurveillance",
+              "label": {
+                "en": "Alarme, vidéosurveillance (Dépannage maison)",
+                "fr": "Alarme, vidéosurveillance (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.ascenseurs-installations-diverses",
+              "label": {
+                "en": "Ascenseurs, installations diverses (Dépannage maison)",
+                "fr": "Ascenseurs, installations diverses (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.demenageur",
+              "label": {
+                "en": "Déménageur (Dépannage maison)",
+                "fr": "Déménageur (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-renovation.peintre-en-batiment",
+              "label": {
+                "en": "Peintre en bâtiment (Rénovation)",
+                "fr": "Peintre en bâtiment (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.platrier-plaquiste",
+              "label": {
+                "en": "Plâtrier, plaquiste (Rénovation)",
+                "fr": "Plâtrier, plaquiste (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.carreleur-sols-et-murs",
+              "label": {
+                "en": "Carreleur, sols et murs (Rénovation)",
+                "fr": "Carreleur, sols et murs (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.menuisier",
+              "label": {
+                "en": "Menuisier (portes, fenêtres, PVC) (Rénovation)",
+                "fr": "Menuisier (portes, fenêtres, PVC) (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.isolation",
+              "label": {
+                "en": "Isolation (Rénovation)",
+                "fr": "Isolation (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.vitrier-miroitier",
+              "label": {
+                "en": "Vitrier, miroitier (Rénovation)",
+                "fr": "Vitrier, miroitier (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.verandas-stores-clotures",
+              "label": {
+                "en": "Vérandas, stores, clôtures (Rénovation)",
+                "fr": "Vérandas, stores, clôtures (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.agencement-cuisiniste",
+              "label": {
+                "en": "Agencement, cuisiniste (Rénovation)",
+                "fr": "Agencement, cuisiniste (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.autres-finitions",
+              "label": {
+                "en": "Autres finitions (Rénovation)",
+                "fr": "Autres finitions (Rénovation)"
+              }
+            },
+            {
+              "value": "construction.macon-gros-oeuvre",
+              "label": {
+                "en": "Maçon, gros œuvre (Maçonnerie)",
+                "fr": "Maçon, gros œuvre (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.constructeur-de-maisons-individuelles",
+              "label": {
+                "en": "Constructeur de maisons individuelles (Maçonnerie)",
+                "fr": "Constructeur de maisons individuelles (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.construction-et-rehabilitation-de-batiments",
+              "label": {
+                "en": "Construction et réhabilitation de bâtiments (Maçonnerie)",
+                "fr": "Construction et réhabilitation de bâtiments (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.charpentier",
+              "label": {
+                "en": "Charpentier (Maçonnerie)",
+                "fr": "Charpentier (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.terrassement-demolition-forage",
+              "label": {
+                "en": "Terrassement, démolition, forage (Maçonnerie)",
+                "fr": "Terrassement, démolition, forage (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.piscine",
+              "label": {
+                "en": "Piscine (Maçonnerie)",
+                "fr": "Piscine (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.tailleur-de-pierre-marbrier",
+              "label": {
+                "en": "Tailleur de pierre, marbrier (Maçonnerie)",
+                "fr": "Tailleur de pierre, marbrier (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.travaux-publics-reseaux",
+              "label": {
+                "en": "Travaux publics, réseaux (Maçonnerie)",
+                "fr": "Travaux publics, réseaux (Maçonnerie)"
+              }
+            },
+            {
+              "value": "decoration.ebeniste-fabricant-de-meubles",
+              "label": {
+                "en": "Ébéniste, fabricant de meubles (Décoration)",
+                "fr": "Ébéniste, fabricant de meubles (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.tapissier-restauration-de-meubles",
+              "label": {
+                "en": "Tapissier, restauration de meubles (Décoration)",
+                "fr": "Tapissier, restauration de meubles (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.rideaux-linge-de-maison-coussins",
+              "label": {
+                "en": "Rideaux, linge de maison, coussins (Décoration)",
+                "fr": "Rideaux, linge de maison, coussins (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.luminaires",
+              "label": {
+                "en": "Luminaires (Décoration)",
+                "fr": "Luminaires (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.ceramique-poterie",
+              "label": {
+                "en": "Céramique, poterie (Décoration)",
+                "fr": "Céramique, poterie (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.verre-vitrail",
+              "label": {
+                "en": "Verre, vitrail (Décoration)",
+                "fr": "Verre, vitrail (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.objets-en-bois-vannerie",
+              "label": {
+                "en": "Objets en bois, vannerie (Décoration)",
+                "fr": "Objets en bois, vannerie (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.decoration-en-platre-cheminees",
+              "label": {
+                "en": "Décoration en plâtre, cheminées (Décoration)",
+                "fr": "Décoration en plâtre, cheminées (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.bougies-objets-decoratifs",
+              "label": {
+                "en": "Bougies, objets décoratifs (Décoration)",
+                "fr": "Bougies, objets décoratifs (Décoration)"
+              }
+            },
+            {
+              "value": "vehicule.garagiste-mecanique",
+              "label": {
+                "en": "Garagiste, mécanique (Véhicule)",
+                "fr": "Garagiste, mécanique (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.carrossier",
+              "label": {
+                "en": "Carrossier (Véhicule)",
+                "fr": "Carrossier (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.electricite-automobile",
+              "label": {
+                "en": "Électricité automobile (Véhicule)",
+                "fr": "Électricité automobile (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.poids-lourds-utilitaires-diesel",
+              "label": {
+                "en": "Poids lourds, utilitaires, diesel (Véhicule)",
+                "fr": "Poids lourds, utilitaires, diesel (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.controle-technique",
+              "label": {
+                "en": "Contrôle technique (Véhicule)",
+                "fr": "Contrôle technique (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.depannage-remorquage",
+              "label": {
+                "en": "Dépannage, remorquage (Véhicule)",
+                "fr": "Dépannage, remorquage (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.moto-scooter",
+              "label": {
+                "en": "Moto, scooter (Véhicule)",
+                "fr": "Moto, scooter (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.velo",
+              "label": {
+                "en": "Vélo (Véhicule)",
+                "fr": "Vélo (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.amenagement-de-vehicules-remorques",
+              "label": {
+                "en": "Aménagement de véhicules, remorques (Véhicule)",
+                "fr": "Aménagement de véhicules, remorques (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.bateau",
+              "label": {
+                "en": "Bateau (Véhicule)",
+                "fr": "Bateau (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.materiel-agricole",
+              "label": {
+                "en": "Matériel agricole (Véhicule)",
+                "fr": "Matériel agricole (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.taxi",
+              "label": {
+                "en": "Taxi (Véhicule)",
+                "fr": "Taxi (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.vtc-voiture-avec-chauffeur",
+              "label": {
+                "en": "VTC, voiture avec chauffeur (Véhicule)",
+                "fr": "VTC, voiture avec chauffeur (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.ambulance",
+              "label": {
+                "en": "Ambulance (Véhicule)",
+                "fr": "Ambulance (Véhicule)"
+              }
+            },
+            {
+              "value": "alimentation.boulangerie-patisserie",
+              "label": {
+                "en": "Boulangerie, pâtisserie (Alimentation)",
+                "fr": "Boulangerie, pâtisserie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.chocolatier-confiseur",
+              "label": {
+                "en": "Chocolatier, confiseur (Alimentation)",
+                "fr": "Chocolatier, confiseur (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.glacier",
+              "label": {
+                "en": "Glacier (Alimentation)",
+                "fr": "Glacier (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.boucherie-charcuterie",
+              "label": {
+                "en": "Boucherie, charcuterie (Alimentation)",
+                "fr": "Boucherie, charcuterie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.poissonnerie",
+              "label": {
+                "en": "Poissonnerie (Alimentation)",
+                "fr": "Poissonnerie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.fromagerie-cremerie",
+              "label": {
+                "en": "Fromagerie, crèmerie (Alimentation)",
+                "fr": "Fromagerie, crèmerie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.traiteur-plats-cuisines",
+              "label": {
+                "en": "Traiteur, plats cuisinés (Alimentation)",
+                "fr": "Traiteur, plats cuisinés (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.restaurant",
+              "label": {
+                "en": "Restaurant (Alimentation)",
+                "fr": "Restaurant (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.restauration-rapide-food-truck",
+              "label": {
+                "en": "Restauration rapide, food truck (Alimentation)",
+                "fr": "Restauration rapide, food truck (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.epicerie-fine-produits-du-terroir",
+              "label": {
+                "en": "Épicerie fine, produits du terroir (Alimentation)",
+                "fr": "Épicerie fine, produits du terroir (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.brasseur-cidre",
+              "label": {
+                "en": "Brasseur, cidre (Alimentation)",
+                "fr": "Brasseur, cidre (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.vins-et-spiritueux",
+              "label": {
+                "en": "Vins et spiritueux (Alimentation)",
+                "fr": "Vins et spiritueux (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.cafe-the",
+              "label": {
+                "en": "Café, thé (Alimentation)",
+                "fr": "Café, thé (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.marches",
+              "label": {
+                "en": "Marchés (Alimentation)",
+                "fr": "Marchés (Alimentation)"
+              }
+            },
+            {
+              "value": "beaute.coiffeur-en-salon",
+              "label": {
+                "en": "Coiffeur en salon (Beauté)",
+                "fr": "Coiffeur en salon (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.coiffeur-a-domicile",
+              "label": {
+                "en": "Coiffeur à domicile (Beauté)",
+                "fr": "Coiffeur à domicile (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.institut-de-beaute",
+              "label": {
+                "en": "Institut de beauté (Beauté)",
+                "fr": "Institut de beauté (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.estheticienne-a-domicile",
+              "label": {
+                "en": "Esthéticienne à domicile (Beauté)",
+                "fr": "Esthéticienne à domicile (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.bien-etre-tatouage-autres-soins",
+              "label": {
+                "en": "Bien-être, tatouage, autres soins (Beauté)",
+                "fr": "Bien-être, tatouage, autres soins (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.protheses-ortheses-podo-orthesiste",
+              "label": {
+                "en": "Prothèses, orthèses, podo-orthésiste (Beauté)",
+                "fr": "Prothèses, orthèses, podo-orthésiste (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.lunetier",
+              "label": {
+                "en": "Lunetier (Beauté)",
+                "fr": "Lunetier (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.savonnerie-cosmetiques-artisanaux",
+              "label": {
+                "en": "Savonnerie, cosmétiques artisanaux (Beauté)",
+                "fr": "Savonnerie, cosmétiques artisanaux (Beauté)"
+              }
+            },
+            {
+              "value": "reparation.electromenager",
+              "label": {
+                "en": "Électroménager (Réparation)",
+                "fr": "Électroménager (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.ordinateur",
+              "label": {
+                "en": "Ordinateur (Réparation)",
+                "fr": "Ordinateur (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.telephone",
+              "label": {
+                "en": "Téléphone (Réparation)",
+                "fr": "Téléphone (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.tv-hi-fi-electronique",
+              "label": {
+                "en": "TV, hi-fi, électronique (Réparation)",
+                "fr": "TV, hi-fi, électronique (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.cordonnier",
+              "label": {
+                "en": "Cordonnier (Réparation)",
+                "fr": "Cordonnier (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.retouches-couture",
+              "label": {
+                "en": "Retouches, couture (Réparation)",
+                "fr": "Retouches, couture (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.montres-bijoux",
+              "label": {
+                "en": "Montres, bijoux (Réparation)",
+                "fr": "Montres, bijoux (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.tondeuse-motoculture",
+              "label": {
+                "en": "Tondeuse, motoculture (Réparation)",
+                "fr": "Tondeuse, motoculture (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.instruments-de-musique-piano",
+              "label": {
+                "en": "Instruments de musique, piano (Réparation)",
+                "fr": "Instruments de musique, piano (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.articles-de-sport",
+              "label": {
+                "en": "Articles de sport (Réparation)",
+                "fr": "Articles de sport (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.affutage",
+              "label": {
+                "en": "Affûtage (Réparation)",
+                "fr": "Affûtage (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.autres-reparations",
+              "label": {
+                "en": "Autres réparations (Réparation)",
+                "fr": "Autres réparations (Réparation)"
+              }
+            },
+            {
+              "value": "mode.couture-sur-mesure-createur",
+              "label": {
+                "en": "Couture sur mesure, créateur (Mode et bijoux)",
+                "fr": "Couture sur mesure, créateur (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.tricot-mailles",
+              "label": {
+                "en": "Tricot, mailles (Mode et bijoux)",
+                "fr": "Tricot, mailles (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.chapelier-modiste",
+              "label": {
+                "en": "Chapelier, modiste (Mode et bijoux)",
+                "fr": "Chapelier, modiste (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.bijoutier-joaillier",
+              "label": {
+                "en": "Bijoutier, joaillier (Mode et bijoux)",
+                "fr": "Bijoutier, joaillier (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.bijoux-fantaisie",
+              "label": {
+                "en": "Bijoux fantaisie (Mode et bijoux)",
+                "fr": "Bijoux fantaisie (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.maroquinier-sellier",
+              "label": {
+                "en": "Maroquinier, sellier (Mode et bijoux)",
+                "fr": "Maroquinier, sellier (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.bottier-chaussures",
+              "label": {
+                "en": "Bottier, chaussures (Mode et bijoux)",
+                "fr": "Bottier, chaussures (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.horloger",
+              "label": {
+                "en": "Horloger (Mode et bijoux)",
+                "fr": "Horloger (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.coutelier",
+              "label": {
+                "en": "Coutelier (Mode et bijoux)",
+                "fr": "Coutelier (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "art-evenements.photographe",
+              "label": {
+                "en": "Photographe (Art et fêtes)",
+                "fr": "Photographe (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.artiste-creation",
+              "label": {
+                "en": "Artiste, création (Art et fêtes)",
+                "fr": "Artiste, création (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.musique-spectacle",
+              "label": {
+                "en": "Musique, spectacle (Art et fêtes)",
+                "fr": "Musique, spectacle (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.restauration-d-objets-d-art",
+              "label": {
+                "en": "Restauration d'objets d'art (Art et fêtes)",
+                "fr": "Restauration d'objets d'art (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.luthier-facteur-d-instruments",
+              "label": {
+                "en": "Luthier, facteur d'instruments (Art et fêtes)",
+                "fr": "Luthier, facteur d'instruments (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.fleuriste",
+              "label": {
+                "en": "Fleuriste (Art et fêtes)",
+                "fr": "Fleuriste (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.artificier",
+              "label": {
+                "en": "Artificier (Art et fêtes)",
+                "fr": "Artificier (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.imprimeur-serigraphe",
+              "label": {
+                "en": "Imprimeur, sérigraphe (Art et fêtes)",
+                "fr": "Imprimeur, sérigraphe (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.graphiste-design-decoration-de-vitrines",
+              "label": {
+                "en": "Graphiste, design, décoration de vitrines (Art et fêtes)",
+                "fr": "Graphiste, design, décoration de vitrines (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.relieur-papeterie",
+              "label": {
+                "en": "Relieur, papeterie (Art et fêtes)",
+                "fr": "Relieur, papeterie (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.jeux-jouets-articles-de-sport",
+              "label": {
+                "en": "Jeux, jouets, articles de sport (Art et fêtes)",
+                "fr": "Jeux, jouets, articles de sport (Art et fêtes)"
+              }
+            },
+            {
+              "value": "services.nettoyage-menage",
+              "label": {
+                "en": "Nettoyage, ménage (Services)",
+                "fr": "Nettoyage, ménage (Services)"
+              }
+            },
+            {
+              "value": "services.desinsectisation-deratisation",
+              "label": {
+                "en": "Désinsectisation, dératisation (Services)",
+                "fr": "Désinsectisation, dératisation (Services)"
+              }
+            },
+            {
+              "value": "services.pressing-laverie",
+              "label": {
+                "en": "Pressing, laverie (Services)",
+                "fr": "Pressing, laverie (Services)"
+              }
+            },
+            {
+              "value": "services.fosses-septiques-assainissement",
+              "label": {
+                "en": "Fosses septiques, assainissement (Services)",
+                "fr": "Fosses septiques, assainissement (Services)"
+              }
+            },
+            {
+              "value": "services.desamiantage-depollution",
+              "label": {
+                "en": "Désamiantage, dépollution (Services)",
+                "fr": "Désamiantage, dépollution (Services)"
+              }
+            },
+            {
+              "value": "services.toilettage",
+              "label": {
+                "en": "Toilettage (Services)",
+                "fr": "Toilettage (Services)"
+              }
+            },
+            {
+              "value": "services.marechal-ferrant",
+              "label": {
+                "en": "Maréchal-ferrant (Services)",
+                "fr": "Maréchal-ferrant (Services)"
+              }
+            },
+            {
+              "value": "services.pompes-funebres",
+              "label": {
+                "en": "Pompes funèbres (Services)",
+                "fr": "Pompes funèbres (Services)"
+              }
+            },
+            {
+              "value": "services.secretariat-services-de-bureau",
+              "label": {
+                "en": "Secrétariat, services de bureau (Services)",
+                "fr": "Secrétariat, services de bureau (Services)"
+              }
+            },
+            {
+              "value": "services.publicite",
+              "label": {
+                "en": "Publicité (Services)",
+                "fr": "Publicité (Services)"
+              }
+            },
+            {
+              "value": "services.commercants-des-marches",
+              "label": {
+                "en": "Commerçants des marchés (hors alimentation) (Services)",
+                "fr": "Commerçants des marchés (hors alimentation) (Services)"
+              }
+            },
+            {
+              "value": "fabrication.industrie-alimentaire-meunerie",
+              "label": {
+                "en": "Industrie alimentaire, meunerie (Fabrication)",
+                "fr": "Industrie alimentaire, meunerie (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.abattage-transformation-de-la-viande-et-du-poisson",
+              "label": {
+                "en": "Abattage, transformation de la viande et du poisson (Fabrication)",
+                "fr": "Abattage, transformation de la viande et du poisson (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.mecanique-metallurgie",
+              "label": {
+                "en": "Mécanique, métallurgie (Fabrication)",
+                "fr": "Mécanique, métallurgie (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.textile-cuir",
+              "label": {
+                "en": "Textile, cuir (Fabrication)",
+                "fr": "Textile, cuir (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.bois-scierie-emballages",
+              "label": {
+                "en": "Bois : scierie, emballages (Fabrication)",
+                "fr": "Bois : scierie, emballages (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.materiaux-chimie-verre",
+              "label": {
+                "en": "Matériaux, chimie, verre (Fabrication)",
+                "fr": "Matériaux, chimie, verre (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.papier-edition",
+              "label": {
+                "en": "Papier, édition (Fabrication)",
+                "fr": "Papier, édition (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.electronique-plasturgie-recyclage",
+              "label": {
+                "en": "Électronique, plasturgie, recyclage (Fabrication)",
+                "fr": "Électronique, plasturgie, recyclage (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.maintenance-industrielle",
+              "label": {
+                "en": "Maintenance industrielle (Fabrication)",
+                "fr": "Maintenance industrielle (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.transport-fluvial",
+              "label": {
+                "en": "Transport fluvial (Fabrication)",
+                "fr": "Transport fluvial (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.installation-industrielle-services-agricoles",
+              "label": {
+                "en": "Installation industrielle, services agricoles (Fabrication)",
+                "fr": "Installation industrielle, services agricoles (Fabrication)"
+              }
+            }
+          ]
+        },
+        {
+          "key": "rayon",
+          "type": "select",
+          "label": {
+            "en": "Radius",
+            "fr": "Rayon"
+          },
+          "default": "10",
+          "options": [
+            {
+              "value": "5",
+              "label": {
+                "en": "5 km",
+                "fr": "5 km"
+              }
+            },
+            {
+              "value": "10",
+              "label": {
+                "en": "10 km",
+                "fr": "10 km"
+              }
+            },
+            {
+              "value": "25",
+              "label": {
+                "en": "25 km",
+                "fr": "25 km"
+              }
+            },
+            {
+              "value": "50",
+              "label": {
+                "en": "50 km",
+                "fr": "50 km"
+              }
+            }
+          ]
+        },
+        {
+          "key": "labellises",
+          "type": "boolean",
+          "label": {
+            "en": "Certified companies only (RGE, EPV, master craftsman)",
+            "fr": "Seulement les entreprises labellisées (RGE, EPV, Maître artisan)"
+          },
+          "default": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "trouve",
+          "type": "boolean",
+          "label": {
+            "en": "Found",
+            "fr": "Trouvé"
+          }
+        },
+        {
+          "key": "nombre",
+          "type": "number",
+          "label": {
+            "en": "Number of craftsmen",
+            "fr": "Nombre d'artisans"
+          }
+        },
+        {
+          "key": "nom",
+          "type": "string",
+          "label": {
+            "en": "Name",
+            "fr": "Nom"
+          }
+        },
+        {
+          "key": "telephone",
+          "type": "string",
+          "label": {
+            "en": "Phone",
+            "fr": "Téléphone"
+          }
+        },
+        {
+          "key": "adresse",
+          "type": "string",
+          "label": {
+            "en": "Address",
+            "fr": "Adresse"
+          }
+        },
+        {
+          "key": "distance",
+          "type": "string",
+          "label": {
+            "en": "Distance",
+            "fr": "Distance"
+          }
+        },
+        {
+          "key": "lien",
+          "type": "string",
+          "label": {
+            "en": "Link",
+            "fr": "Lien"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "artisans_proches",
+      "label": {
+        "en": "Craftsmen near me",
+        "fr": "Artisans près de chez moi"
+      },
+      "description": {
+        "en": "Craftsmen of a trade around your house, certified ones first.",
+        "fr": "Les artisans d'un métier autour de votre maison, labellisés d'abord."
+      },
+      "icon": "tool",
+      "settings": [
+        {
+          "key": "metier",
+          "type": "select",
+          "label": {
+            "en": "Trade",
+            "fr": "Métier"
+          },
+          "required": true,
+          "options": [
+            {
+              "value": "maison-depannage.plombier",
+              "label": {
+                "en": "Plombier (Dépannage maison)",
+                "fr": "Plombier (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.chauffagiste-climatisation",
+              "label": {
+                "en": "Chauffagiste, climatisation (Dépannage maison)",
+                "fr": "Chauffagiste, climatisation (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.electricien",
+              "label": {
+                "en": "Électricien (Dépannage maison)",
+                "fr": "Électricien (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.antenniste",
+              "label": {
+                "en": "Antenniste (Dépannage maison)",
+                "fr": "Antenniste (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.couvreur-zingueur",
+              "label": {
+                "en": "Couvreur, zingueur (Dépannage maison)",
+                "fr": "Couvreur, zingueur (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.etancheite",
+              "label": {
+                "en": "Étanchéité (Dépannage maison)",
+                "fr": "Étanchéité (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.serrurier-metallier",
+              "label": {
+                "en": "Serrurier, métallier (Dépannage maison)",
+                "fr": "Serrurier, métallier (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.alarme-videosurveillance",
+              "label": {
+                "en": "Alarme, vidéosurveillance (Dépannage maison)",
+                "fr": "Alarme, vidéosurveillance (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.ascenseurs-installations-diverses",
+              "label": {
+                "en": "Ascenseurs, installations diverses (Dépannage maison)",
+                "fr": "Ascenseurs, installations diverses (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-depannage.demenageur",
+              "label": {
+                "en": "Déménageur (Dépannage maison)",
+                "fr": "Déménageur (Dépannage maison)"
+              }
+            },
+            {
+              "value": "maison-renovation.peintre-en-batiment",
+              "label": {
+                "en": "Peintre en bâtiment (Rénovation)",
+                "fr": "Peintre en bâtiment (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.platrier-plaquiste",
+              "label": {
+                "en": "Plâtrier, plaquiste (Rénovation)",
+                "fr": "Plâtrier, plaquiste (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.carreleur-sols-et-murs",
+              "label": {
+                "en": "Carreleur, sols et murs (Rénovation)",
+                "fr": "Carreleur, sols et murs (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.menuisier",
+              "label": {
+                "en": "Menuisier (portes, fenêtres, PVC) (Rénovation)",
+                "fr": "Menuisier (portes, fenêtres, PVC) (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.isolation",
+              "label": {
+                "en": "Isolation (Rénovation)",
+                "fr": "Isolation (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.vitrier-miroitier",
+              "label": {
+                "en": "Vitrier, miroitier (Rénovation)",
+                "fr": "Vitrier, miroitier (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.verandas-stores-clotures",
+              "label": {
+                "en": "Vérandas, stores, clôtures (Rénovation)",
+                "fr": "Vérandas, stores, clôtures (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.agencement-cuisiniste",
+              "label": {
+                "en": "Agencement, cuisiniste (Rénovation)",
+                "fr": "Agencement, cuisiniste (Rénovation)"
+              }
+            },
+            {
+              "value": "maison-renovation.autres-finitions",
+              "label": {
+                "en": "Autres finitions (Rénovation)",
+                "fr": "Autres finitions (Rénovation)"
+              }
+            },
+            {
+              "value": "construction.macon-gros-oeuvre",
+              "label": {
+                "en": "Maçon, gros œuvre (Maçonnerie)",
+                "fr": "Maçon, gros œuvre (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.constructeur-de-maisons-individuelles",
+              "label": {
+                "en": "Constructeur de maisons individuelles (Maçonnerie)",
+                "fr": "Constructeur de maisons individuelles (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.construction-et-rehabilitation-de-batiments",
+              "label": {
+                "en": "Construction et réhabilitation de bâtiments (Maçonnerie)",
+                "fr": "Construction et réhabilitation de bâtiments (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.charpentier",
+              "label": {
+                "en": "Charpentier (Maçonnerie)",
+                "fr": "Charpentier (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.terrassement-demolition-forage",
+              "label": {
+                "en": "Terrassement, démolition, forage (Maçonnerie)",
+                "fr": "Terrassement, démolition, forage (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.piscine",
+              "label": {
+                "en": "Piscine (Maçonnerie)",
+                "fr": "Piscine (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.tailleur-de-pierre-marbrier",
+              "label": {
+                "en": "Tailleur de pierre, marbrier (Maçonnerie)",
+                "fr": "Tailleur de pierre, marbrier (Maçonnerie)"
+              }
+            },
+            {
+              "value": "construction.travaux-publics-reseaux",
+              "label": {
+                "en": "Travaux publics, réseaux (Maçonnerie)",
+                "fr": "Travaux publics, réseaux (Maçonnerie)"
+              }
+            },
+            {
+              "value": "decoration.ebeniste-fabricant-de-meubles",
+              "label": {
+                "en": "Ébéniste, fabricant de meubles (Décoration)",
+                "fr": "Ébéniste, fabricant de meubles (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.tapissier-restauration-de-meubles",
+              "label": {
+                "en": "Tapissier, restauration de meubles (Décoration)",
+                "fr": "Tapissier, restauration de meubles (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.rideaux-linge-de-maison-coussins",
+              "label": {
+                "en": "Rideaux, linge de maison, coussins (Décoration)",
+                "fr": "Rideaux, linge de maison, coussins (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.luminaires",
+              "label": {
+                "en": "Luminaires (Décoration)",
+                "fr": "Luminaires (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.ceramique-poterie",
+              "label": {
+                "en": "Céramique, poterie (Décoration)",
+                "fr": "Céramique, poterie (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.verre-vitrail",
+              "label": {
+                "en": "Verre, vitrail (Décoration)",
+                "fr": "Verre, vitrail (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.objets-en-bois-vannerie",
+              "label": {
+                "en": "Objets en bois, vannerie (Décoration)",
+                "fr": "Objets en bois, vannerie (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.decoration-en-platre-cheminees",
+              "label": {
+                "en": "Décoration en plâtre, cheminées (Décoration)",
+                "fr": "Décoration en plâtre, cheminées (Décoration)"
+              }
+            },
+            {
+              "value": "decoration.bougies-objets-decoratifs",
+              "label": {
+                "en": "Bougies, objets décoratifs (Décoration)",
+                "fr": "Bougies, objets décoratifs (Décoration)"
+              }
+            },
+            {
+              "value": "vehicule.garagiste-mecanique",
+              "label": {
+                "en": "Garagiste, mécanique (Véhicule)",
+                "fr": "Garagiste, mécanique (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.carrossier",
+              "label": {
+                "en": "Carrossier (Véhicule)",
+                "fr": "Carrossier (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.electricite-automobile",
+              "label": {
+                "en": "Électricité automobile (Véhicule)",
+                "fr": "Électricité automobile (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.poids-lourds-utilitaires-diesel",
+              "label": {
+                "en": "Poids lourds, utilitaires, diesel (Véhicule)",
+                "fr": "Poids lourds, utilitaires, diesel (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.controle-technique",
+              "label": {
+                "en": "Contrôle technique (Véhicule)",
+                "fr": "Contrôle technique (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.depannage-remorquage",
+              "label": {
+                "en": "Dépannage, remorquage (Véhicule)",
+                "fr": "Dépannage, remorquage (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.moto-scooter",
+              "label": {
+                "en": "Moto, scooter (Véhicule)",
+                "fr": "Moto, scooter (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.velo",
+              "label": {
+                "en": "Vélo (Véhicule)",
+                "fr": "Vélo (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.amenagement-de-vehicules-remorques",
+              "label": {
+                "en": "Aménagement de véhicules, remorques (Véhicule)",
+                "fr": "Aménagement de véhicules, remorques (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.bateau",
+              "label": {
+                "en": "Bateau (Véhicule)",
+                "fr": "Bateau (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.materiel-agricole",
+              "label": {
+                "en": "Matériel agricole (Véhicule)",
+                "fr": "Matériel agricole (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.taxi",
+              "label": {
+                "en": "Taxi (Véhicule)",
+                "fr": "Taxi (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.vtc-voiture-avec-chauffeur",
+              "label": {
+                "en": "VTC, voiture avec chauffeur (Véhicule)",
+                "fr": "VTC, voiture avec chauffeur (Véhicule)"
+              }
+            },
+            {
+              "value": "vehicule.ambulance",
+              "label": {
+                "en": "Ambulance (Véhicule)",
+                "fr": "Ambulance (Véhicule)"
+              }
+            },
+            {
+              "value": "alimentation.boulangerie-patisserie",
+              "label": {
+                "en": "Boulangerie, pâtisserie (Alimentation)",
+                "fr": "Boulangerie, pâtisserie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.chocolatier-confiseur",
+              "label": {
+                "en": "Chocolatier, confiseur (Alimentation)",
+                "fr": "Chocolatier, confiseur (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.glacier",
+              "label": {
+                "en": "Glacier (Alimentation)",
+                "fr": "Glacier (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.boucherie-charcuterie",
+              "label": {
+                "en": "Boucherie, charcuterie (Alimentation)",
+                "fr": "Boucherie, charcuterie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.poissonnerie",
+              "label": {
+                "en": "Poissonnerie (Alimentation)",
+                "fr": "Poissonnerie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.fromagerie-cremerie",
+              "label": {
+                "en": "Fromagerie, crèmerie (Alimentation)",
+                "fr": "Fromagerie, crèmerie (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.traiteur-plats-cuisines",
+              "label": {
+                "en": "Traiteur, plats cuisinés (Alimentation)",
+                "fr": "Traiteur, plats cuisinés (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.restaurant",
+              "label": {
+                "en": "Restaurant (Alimentation)",
+                "fr": "Restaurant (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.restauration-rapide-food-truck",
+              "label": {
+                "en": "Restauration rapide, food truck (Alimentation)",
+                "fr": "Restauration rapide, food truck (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.epicerie-fine-produits-du-terroir",
+              "label": {
+                "en": "Épicerie fine, produits du terroir (Alimentation)",
+                "fr": "Épicerie fine, produits du terroir (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.brasseur-cidre",
+              "label": {
+                "en": "Brasseur, cidre (Alimentation)",
+                "fr": "Brasseur, cidre (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.vins-et-spiritueux",
+              "label": {
+                "en": "Vins et spiritueux (Alimentation)",
+                "fr": "Vins et spiritueux (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.cafe-the",
+              "label": {
+                "en": "Café, thé (Alimentation)",
+                "fr": "Café, thé (Alimentation)"
+              }
+            },
+            {
+              "value": "alimentation.marches",
+              "label": {
+                "en": "Marchés (Alimentation)",
+                "fr": "Marchés (Alimentation)"
+              }
+            },
+            {
+              "value": "beaute.coiffeur-en-salon",
+              "label": {
+                "en": "Coiffeur en salon (Beauté)",
+                "fr": "Coiffeur en salon (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.coiffeur-a-domicile",
+              "label": {
+                "en": "Coiffeur à domicile (Beauté)",
+                "fr": "Coiffeur à domicile (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.institut-de-beaute",
+              "label": {
+                "en": "Institut de beauté (Beauté)",
+                "fr": "Institut de beauté (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.estheticienne-a-domicile",
+              "label": {
+                "en": "Esthéticienne à domicile (Beauté)",
+                "fr": "Esthéticienne à domicile (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.bien-etre-tatouage-autres-soins",
+              "label": {
+                "en": "Bien-être, tatouage, autres soins (Beauté)",
+                "fr": "Bien-être, tatouage, autres soins (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.protheses-ortheses-podo-orthesiste",
+              "label": {
+                "en": "Prothèses, orthèses, podo-orthésiste (Beauté)",
+                "fr": "Prothèses, orthèses, podo-orthésiste (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.lunetier",
+              "label": {
+                "en": "Lunetier (Beauté)",
+                "fr": "Lunetier (Beauté)"
+              }
+            },
+            {
+              "value": "beaute.savonnerie-cosmetiques-artisanaux",
+              "label": {
+                "en": "Savonnerie, cosmétiques artisanaux (Beauté)",
+                "fr": "Savonnerie, cosmétiques artisanaux (Beauté)"
+              }
+            },
+            {
+              "value": "reparation.electromenager",
+              "label": {
+                "en": "Électroménager (Réparation)",
+                "fr": "Électroménager (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.ordinateur",
+              "label": {
+                "en": "Ordinateur (Réparation)",
+                "fr": "Ordinateur (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.telephone",
+              "label": {
+                "en": "Téléphone (Réparation)",
+                "fr": "Téléphone (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.tv-hi-fi-electronique",
+              "label": {
+                "en": "TV, hi-fi, électronique (Réparation)",
+                "fr": "TV, hi-fi, électronique (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.cordonnier",
+              "label": {
+                "en": "Cordonnier (Réparation)",
+                "fr": "Cordonnier (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.retouches-couture",
+              "label": {
+                "en": "Retouches, couture (Réparation)",
+                "fr": "Retouches, couture (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.montres-bijoux",
+              "label": {
+                "en": "Montres, bijoux (Réparation)",
+                "fr": "Montres, bijoux (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.tondeuse-motoculture",
+              "label": {
+                "en": "Tondeuse, motoculture (Réparation)",
+                "fr": "Tondeuse, motoculture (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.instruments-de-musique-piano",
+              "label": {
+                "en": "Instruments de musique, piano (Réparation)",
+                "fr": "Instruments de musique, piano (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.articles-de-sport",
+              "label": {
+                "en": "Articles de sport (Réparation)",
+                "fr": "Articles de sport (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.affutage",
+              "label": {
+                "en": "Affûtage (Réparation)",
+                "fr": "Affûtage (Réparation)"
+              }
+            },
+            {
+              "value": "reparation.autres-reparations",
+              "label": {
+                "en": "Autres réparations (Réparation)",
+                "fr": "Autres réparations (Réparation)"
+              }
+            },
+            {
+              "value": "mode.couture-sur-mesure-createur",
+              "label": {
+                "en": "Couture sur mesure, créateur (Mode et bijoux)",
+                "fr": "Couture sur mesure, créateur (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.tricot-mailles",
+              "label": {
+                "en": "Tricot, mailles (Mode et bijoux)",
+                "fr": "Tricot, mailles (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.chapelier-modiste",
+              "label": {
+                "en": "Chapelier, modiste (Mode et bijoux)",
+                "fr": "Chapelier, modiste (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.bijoutier-joaillier",
+              "label": {
+                "en": "Bijoutier, joaillier (Mode et bijoux)",
+                "fr": "Bijoutier, joaillier (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.bijoux-fantaisie",
+              "label": {
+                "en": "Bijoux fantaisie (Mode et bijoux)",
+                "fr": "Bijoux fantaisie (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.maroquinier-sellier",
+              "label": {
+                "en": "Maroquinier, sellier (Mode et bijoux)",
+                "fr": "Maroquinier, sellier (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.bottier-chaussures",
+              "label": {
+                "en": "Bottier, chaussures (Mode et bijoux)",
+                "fr": "Bottier, chaussures (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.horloger",
+              "label": {
+                "en": "Horloger (Mode et bijoux)",
+                "fr": "Horloger (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "mode.coutelier",
+              "label": {
+                "en": "Coutelier (Mode et bijoux)",
+                "fr": "Coutelier (Mode et bijoux)"
+              }
+            },
+            {
+              "value": "art-evenements.photographe",
+              "label": {
+                "en": "Photographe (Art et fêtes)",
+                "fr": "Photographe (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.artiste-creation",
+              "label": {
+                "en": "Artiste, création (Art et fêtes)",
+                "fr": "Artiste, création (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.musique-spectacle",
+              "label": {
+                "en": "Musique, spectacle (Art et fêtes)",
+                "fr": "Musique, spectacle (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.restauration-d-objets-d-art",
+              "label": {
+                "en": "Restauration d'objets d'art (Art et fêtes)",
+                "fr": "Restauration d'objets d'art (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.luthier-facteur-d-instruments",
+              "label": {
+                "en": "Luthier, facteur d'instruments (Art et fêtes)",
+                "fr": "Luthier, facteur d'instruments (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.fleuriste",
+              "label": {
+                "en": "Fleuriste (Art et fêtes)",
+                "fr": "Fleuriste (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.artificier",
+              "label": {
+                "en": "Artificier (Art et fêtes)",
+                "fr": "Artificier (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.imprimeur-serigraphe",
+              "label": {
+                "en": "Imprimeur, sérigraphe (Art et fêtes)",
+                "fr": "Imprimeur, sérigraphe (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.graphiste-design-decoration-de-vitrines",
+              "label": {
+                "en": "Graphiste, design, décoration de vitrines (Art et fêtes)",
+                "fr": "Graphiste, design, décoration de vitrines (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.relieur-papeterie",
+              "label": {
+                "en": "Relieur, papeterie (Art et fêtes)",
+                "fr": "Relieur, papeterie (Art et fêtes)"
+              }
+            },
+            {
+              "value": "art-evenements.jeux-jouets-articles-de-sport",
+              "label": {
+                "en": "Jeux, jouets, articles de sport (Art et fêtes)",
+                "fr": "Jeux, jouets, articles de sport (Art et fêtes)"
+              }
+            },
+            {
+              "value": "services.nettoyage-menage",
+              "label": {
+                "en": "Nettoyage, ménage (Services)",
+                "fr": "Nettoyage, ménage (Services)"
+              }
+            },
+            {
+              "value": "services.desinsectisation-deratisation",
+              "label": {
+                "en": "Désinsectisation, dératisation (Services)",
+                "fr": "Désinsectisation, dératisation (Services)"
+              }
+            },
+            {
+              "value": "services.pressing-laverie",
+              "label": {
+                "en": "Pressing, laverie (Services)",
+                "fr": "Pressing, laverie (Services)"
+              }
+            },
+            {
+              "value": "services.fosses-septiques-assainissement",
+              "label": {
+                "en": "Fosses septiques, assainissement (Services)",
+                "fr": "Fosses septiques, assainissement (Services)"
+              }
+            },
+            {
+              "value": "services.desamiantage-depollution",
+              "label": {
+                "en": "Désamiantage, dépollution (Services)",
+                "fr": "Désamiantage, dépollution (Services)"
+              }
+            },
+            {
+              "value": "services.toilettage",
+              "label": {
+                "en": "Toilettage (Services)",
+                "fr": "Toilettage (Services)"
+              }
+            },
+            {
+              "value": "services.marechal-ferrant",
+              "label": {
+                "en": "Maréchal-ferrant (Services)",
+                "fr": "Maréchal-ferrant (Services)"
+              }
+            },
+            {
+              "value": "services.pompes-funebres",
+              "label": {
+                "en": "Pompes funèbres (Services)",
+                "fr": "Pompes funèbres (Services)"
+              }
+            },
+            {
+              "value": "services.secretariat-services-de-bureau",
+              "label": {
+                "en": "Secrétariat, services de bureau (Services)",
+                "fr": "Secrétariat, services de bureau (Services)"
+              }
+            },
+            {
+              "value": "services.publicite",
+              "label": {
+                "en": "Publicité (Services)",
+                "fr": "Publicité (Services)"
+              }
+            },
+            {
+              "value": "services.commercants-des-marches",
+              "label": {
+                "en": "Commerçants des marchés (hors alimentation) (Services)",
+                "fr": "Commerçants des marchés (hors alimentation) (Services)"
+              }
+            },
+            {
+              "value": "fabrication.industrie-alimentaire-meunerie",
+              "label": {
+                "en": "Industrie alimentaire, meunerie (Fabrication)",
+                "fr": "Industrie alimentaire, meunerie (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.abattage-transformation-de-la-viande-et-du-poisson",
+              "label": {
+                "en": "Abattage, transformation de la viande et du poisson (Fabrication)",
+                "fr": "Abattage, transformation de la viande et du poisson (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.mecanique-metallurgie",
+              "label": {
+                "en": "Mécanique, métallurgie (Fabrication)",
+                "fr": "Mécanique, métallurgie (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.textile-cuir",
+              "label": {
+                "en": "Textile, cuir (Fabrication)",
+                "fr": "Textile, cuir (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.bois-scierie-emballages",
+              "label": {
+                "en": "Bois : scierie, emballages (Fabrication)",
+                "fr": "Bois : scierie, emballages (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.materiaux-chimie-verre",
+              "label": {
+                "en": "Matériaux, chimie, verre (Fabrication)",
+                "fr": "Matériaux, chimie, verre (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.papier-edition",
+              "label": {
+                "en": "Papier, édition (Fabrication)",
+                "fr": "Papier, édition (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.electronique-plasturgie-recyclage",
+              "label": {
+                "en": "Électronique, plasturgie, recyclage (Fabrication)",
+                "fr": "Électronique, plasturgie, recyclage (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.maintenance-industrielle",
+              "label": {
+                "en": "Maintenance industrielle (Fabrication)",
+                "fr": "Maintenance industrielle (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.transport-fluvial",
+              "label": {
+                "en": "Transport fluvial (Fabrication)",
+                "fr": "Transport fluvial (Fabrication)"
+              }
+            },
+            {
+              "value": "fabrication.installation-industrielle-services-agricoles",
+              "label": {
+                "en": "Installation industrielle, services agricoles (Fabrication)",
+                "fr": "Installation industrielle, services agricoles (Fabrication)"
+              }
+            }
+          ]
+        },
+        {
+          "key": "rayon",
+          "type": "select",
+          "label": {
+            "en": "Radius",
+            "fr": "Rayon"
+          },
+          "default": "10",
+          "options": [
+            {
+              "value": "5",
+              "label": {
+                "en": "5 km",
+                "fr": "5 km"
+              }
+            },
+            {
+              "value": "10",
+              "label": {
+                "en": "10 km",
+                "fr": "10 km"
+              }
+            },
+            {
+              "value": "25",
+              "label": {
+                "en": "25 km",
+                "fr": "25 km"
+              }
+            },
+            {
+              "value": "50",
+              "label": {
+                "en": "50 km",
+                "fr": "50 km"
+              }
+            }
+          ]
+        },
+        {
+          "key": "labellises",
+          "type": "boolean",
+          "label": {
+            "en": "Certified companies only (RGE, EPV, master craftsman)",
+            "fr": "Seulement les entreprises labellisées (RGE, EPV, Maître artisan)"
+          },
+          "default": false
+        }
+      ]
+    }
+  ]
+}
