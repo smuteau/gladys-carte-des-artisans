@@ -1,6 +1,6 @@
 {
   "name": "gladys-carte-des-artisans",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "description": "Intégration Gladys Assistant de la Carte des artisans : artisans près de la maison (widget et action de scène).",
   "type": "module",
