@@ -9,7 +9,7 @@ Trade names and texts are in French.
 
 ## Before you start
 
-- **Gladys 5.1 or later.**
+- **Gladys 5.3 or later.**
 - **Your house location** must be set in **Settings › Houses**. The
   integration searches around the first located house (alphabetical order).
 - The installation asks for the **house location**: it is only used to compute

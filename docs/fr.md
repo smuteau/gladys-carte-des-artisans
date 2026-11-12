@@ -10,7 +10,7 @@ et en Corse.
 
 ## Avant de commencer
 
-- **Gladys 5.1 ou plus récent.**
+- **Gladys 5.3 ou plus récent.**
 - **La position de votre maison** doit être renseignée dans
   **Paramètres › Maisons**. L'intégration cherche autour de la première maison
   localisée (par ordre alphabétique).

@@ -110,3 +110,12 @@ test('description du catalogue : 10 à 100 caractères par langue', () => {
     assert.ok(text.length >= 10 && text.length <= 100, `description.${lang} : ${text.length}`);
   }
 });
+
+test('the catalog countries: France, which needs Gladys >= 5.3.0', () => {
+  assert.deepEqual(manifest.countries, ['FR']);
+  const [major, minor] = manifest.gladys_version
+    .match(/>=\s*(\d+)\.(\d+)/)
+    .slice(1)
+    .map(Number);
+  assert.ok(major > 5 || (major === 5 && minor >= 3), 'countries needs Gladys 5.3.0');
+});
